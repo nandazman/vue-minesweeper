@@ -9,26 +9,25 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-@Component
+import { mapGetters, mapActions } from 'vuex';
+
+@Component({
+  computed: {
+    ...mapGetters({
+      grids: 'grid/getGrids'
+    })
+  },
+  methods: {
+    ...mapActions('grid', ['setGrid'])
+  }
+})
 export default class Grid extends Vue {
-  private grids: string[][] = [[]];
+  setGrid!: () => void;
 
-  // temporary add dynamic grid dimension
-  generateGrid() {
-    const rowsLength = Math.round(Math.random() * 16) + 4;
-    const colsLength = Math.round(Math.random() * 16) + 4;
-    for(let i = 0; i < rowsLength; i++) {
-      const cols: string[] = [];
-      for(let j = 0; j < colsLength; j++) {
-        cols.push('');
-      }
-      this.grids.push(cols)
-    }
+  created() {
+    this.setGrid();
   }
 
-  mounted() {
-    this.generateGrid();
-  }
 }
 </script>
 
