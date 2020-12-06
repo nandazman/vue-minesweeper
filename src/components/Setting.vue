@@ -40,7 +40,7 @@ export default class Setting extends Vue {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
   
   .game-status-container {

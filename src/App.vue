@@ -6,6 +6,7 @@
       <Grid/>
     </main>
     <Difficulty/>
+    <Finish/>
   </div>
 </template>
 
@@ -15,13 +16,17 @@ import Grid from './components/Grid.vue';
 import Title from './components/Title.vue';
 import Setting from './components/Setting.vue';
 import Difficulty from './components/Difficulty.vue';
+import Timer from './components/Timer.vue';
+import Finish from './components/Finish.vue';
 
 @Component({
   components: {
     Grid,
     Title,
     Setting,
-    Difficulty
+    Difficulty,
+    Timer,
+    Finish
   },
 })
 export default class App extends Vue {}
@@ -54,5 +59,19 @@ export default class App extends Vue {}
   .btn:hover {
     cursor: pointer;
     background: #232323;
+  }
+  .modal {
+    display: none;
+    position: absolute; 
+    top: 0;
+    height: 100vh;
+    color: #fff;
+    width: 100%;
+    background-color:#000000a6;
+    justify-content: center;
+    align-items: center;
+  }
+  .show {
+    display: flex;
   }
 </style>

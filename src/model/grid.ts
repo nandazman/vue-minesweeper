@@ -1,7 +1,12 @@
 export type Difficultes = 'easy' | 'medium' | 'hard' | 'custom';
 
+export interface GridCols {
+  reveal: boolean;
+  value: number | string;
+}
+
 export interface GridInterface {
-  grids: string[][];
+  grids: GridCols[][];
   difficulty: Difficultes;
   rows: number;
   columns: number;

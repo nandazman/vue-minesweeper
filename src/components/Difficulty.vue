@@ -28,7 +28,7 @@
           Cancel
         </p>
         <p class="btn" @click="initSetDifficulty">
-          Confirm
+          Start
         </p>
       </div>
     </div>
@@ -48,7 +48,8 @@ import { Gameplay, Difficultes, difficulty } from '@/model/grid';
   },
   methods: {
     ...mapActions('grid', ['setDifficulty']),
-    ...mapActions('setting', ['toggleSetting'])
+    ...mapActions('setting', ['toggleSetting']),
+    ...mapActions('game', ['stopGame'])
   }
 })
 export default class Difficulty extends Vue {
@@ -60,6 +61,7 @@ export default class Difficulty extends Vue {
   
   setDifficulty!: (data: { difficultyType: Difficultes; updatedGameplay?: Gameplay}) => void;
   toggleSetting!: () => void;
+  stopGame!: () => void;
 
   initSetDifficulty() {
     let updatedGameplay: Gameplay | undefined;
@@ -76,6 +78,7 @@ export default class Difficulty extends Vue {
     this.setDifficulty({difficultyType, updatedGameplay});
     this.updateSettingFromStore();
     this.toggleSetting();
+    this.stopGame();
   }
 
   updateSettingFromStore() {
@@ -96,20 +99,6 @@ export default class Difficulty extends Vue {
 </script>
 
 <style scoped>
-  .modal {
-    display: none;
-    position: absolute; 
-    top: 0;
-    height: 100vh;
-    color: #fff;
-    width: 100%;
-    background-color: rgba(0,0,0,0.4);
-    justify-content: center;
-    align-items: center;
-  }
-  .show {
-    display: flex;
-  }
   .content {
     width: 400px;
     height: 400px;

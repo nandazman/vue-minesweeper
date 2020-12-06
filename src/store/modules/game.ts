@@ -1,17 +1,23 @@
 import { Game, gameStatus } from '@/model/game';
 
 const state: Game = {
-  status: gameStatus.FINISH
+  status: gameStatus.STOP
 };
 
 const actions = {
   startGame({ commit }: {commit: Function}) {
-    commit("startGame", gameStatus.START);
+    commit("updateGameStatus", gameStatus.START);
+  },
+  stopGame({ commit }: {commit: Function}) {
+    commit("updateGameStatus", gameStatus.STOP);
+  },
+  loseGame({ commit }: {commit: Function}) {
+    commit("updateGameStatus", gameStatus.LOSE);
   }
 };
 
 const mutations = {
-  startGame(state: Game, status: number) {
+  updateGameStatus(state: Game, status: number) {
     state.status = status;
   }
 };
