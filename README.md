@@ -1,5 +1,7 @@
 # vue-minesweeper
 
+## Preview
+demo can be accessed in [here](https://nandazman.github.io/vue-minesweeper/).
 ## Project setup
 ```
 yarn install
