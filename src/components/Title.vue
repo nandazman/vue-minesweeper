@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <p class="title">Minesweeper!</p>
-    <img alt="Vue logo" src="../assets/bomb.svg">
+    <div class="logo"></div>
   </div>
 </template>
 
@@ -25,8 +25,12 @@ export default class Title extends Vue {
     font-size: 2rem;
     color: white;
   }
-  img {
+
+  .logo {
+    background: url('../assets/bomb.svg');
     height: 40px;
     width: 40px;
+    background-repeat: no-repeat;
+    background-position: center;
   }
 </style>
