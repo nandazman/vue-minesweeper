@@ -2,7 +2,7 @@ import { difficulty, GridInterface, Difficultes, Gameplay, GridCols } from '@/mo
 import { RootState } from '@/model/rootState';
 import { gameStatus } from '@/model/game';
 
-const setBombToGrid = (state: GridInterface, clickedIndex: { col: number; row: number }): GridCols[][] => {
+const setBombToGrid = (state: GridInterface, clickedIndex: { col: number; row: number }): void => {
   const { grids, rows: rowLength, columns: colLength } = state;
   const currentGrids = [...grids];
   let bombs = state.bombs;
@@ -59,7 +59,6 @@ const setBombToGrid = (state: GridInterface, clickedIndex: { col: number; row: n
       bombs--;
     }
   }
-  return currentGrids;
 }
 
 const getIndexAroundCell = (clickedIndex: { col: number; row: number }) => {
@@ -73,27 +72,27 @@ const getIndexAroundCell = (clickedIndex: { col: number; row: number }) => {
   }
 }
 
-const revealZeroValueNearCell = (currentGrids: GridCols[][], clickedIndex: { col: number; row: number }): GridCols[][] => {
+const revealZeroValueNearCell = (currentGrids: GridCols[][], clickedIndex: { col: number; row: number }): void => {
   const { topRow, bottomRow, currentRow, leftCol, currentCol, rightCol } = getIndexAroundCell(clickedIndex);
-  if (!currentGrids[currentRow] || !currentGrids[currentRow][currentCol]) return currentGrids;
-  if (currentGrids[currentRow][currentCol].reveal) return currentGrids;
-  if (typeof currentGrids[currentRow][currentCol].value === 'string') return currentGrids;
+  if (!currentGrids[currentRow] || !currentGrids[currentRow][currentCol]) return;
+  if (currentGrids[currentRow][currentCol].reveal) return;
+  if (typeof currentGrids[currentRow][currentCol].value === 'string') return;
 
   currentGrids[currentRow][currentCol].reveal = true;
-  if (currentGrids[currentRow][currentCol].value !== 0) return currentGrids;
+  if (currentGrids[currentRow][currentCol].value !== 0) return;
 
-  currentGrids = revealZeroValueNearCell(currentGrids, { row: topRow, col: currentCol });
-  currentGrids = revealZeroValueNearCell(currentGrids, { row: bottomRow, col: currentCol });
-  currentGrids = revealZeroValueNearCell(currentGrids, { row: currentRow, col: leftCol });
-  currentGrids = revealZeroValueNearCell(currentGrids, { row: currentRow, col: rightCol });
-  currentGrids = revealZeroValueNearCell(currentGrids, { row: topRow, col: leftCol });
-  currentGrids = revealZeroValueNearCell(currentGrids, { row: topRow, col: rightCol });
-  currentGrids = revealZeroValueNearCell(currentGrids, { row: bottomRow, col: rightCol });
-  currentGrids = revealZeroValueNearCell(currentGrids, { row: bottomRow, col: leftCol });
-  return currentGrids;
+  revealZeroValueNearCell(currentGrids, { row: topRow, col: currentCol });
+  revealZeroValueNearCell(currentGrids, { row: bottomRow, col: currentCol });
+  revealZeroValueNearCell(currentGrids, { row: currentRow, col: leftCol });
+  revealZeroValueNearCell(currentGrids, { row: currentRow, col: rightCol });
+  revealZeroValueNearCell(currentGrids, { row: topRow, col: leftCol });
+  revealZeroValueNearCell(currentGrids, { row: topRow, col: rightCol });
+  revealZeroValueNearCell(currentGrids, { row: bottomRow, col: rightCol });
+  revealZeroValueNearCell(currentGrids, { row: bottomRow, col: leftCol });
+  return;
 }
 
-const revealAllBomb = (currentGrids: GridCols[][]): GridCols[][] => {
+const revealAllBomb = (currentGrids: GridCols[][]): void => {
   for(let i = 0; i < currentGrids.length; i++) {
     for(let j = 0; j < currentGrids[i].length; j++) {
       if (currentGrids[i][j].value === 'X') {
@@ -101,16 +100,14 @@ const revealAllBomb = (currentGrids: GridCols[][]): GridCols[][] => {
       }
     }
   }
-  return currentGrids;
 }
 
-const hideAllCell = (currentGrids: GridCols[][]): GridCols[][] => {
+const hideAllCell = (currentGrids: GridCols[][]): void => {
   for(let i = 0; i < currentGrids.length; i++) {
     for(let j = 0; j < currentGrids[i].length; j++) {
       currentGrids[i][j].reveal = false;
     }
   }
-  return currentGrids;
 }
 
 const state: GridInterface = {
@@ -191,16 +188,13 @@ const mutations = {
     state.difficulty = difficultyType;
   },
   revealCell(state: GridInterface, { col, row}: { col: number; row: number}): void {
-    const updatedGrid = revealZeroValueNearCell([...state.grids], { col, row });
-    state.grids = updatedGrid;
+    revealZeroValueNearCell([...state.grids], { col, row });
   },
   updateGridWithBombAndNumber(state: GridInterface, { col, row}: { col: number; row: number}): void {
-    const updatedGrid = setBombToGrid(state, { col, row });
-    state.grids = updatedGrid;
+    setBombToGrid(state, { col, row });
   },
   revealAllBomb(state: GridInterface): void {
-    const updatedGrid = revealAllBomb([...state.grids]);
-    state.grids = updatedGrid;
+    revealAllBomb([...state.grids]);
   },
   loseGame(_: GridInterface, rootState: RootState): void {
     rootState.game.status = gameStatus.LOSE;
@@ -209,8 +203,7 @@ const mutations = {
     rootState.game.status = gameStatus.WIN;
   },
   hideAllCell(state: GridInterface): void {
-    const updatedGrid = hideAllCell([...state.grids]);
-    state.grids = updatedGrid;
+    hideAllCell([...state.grids]);
   }
 };
 

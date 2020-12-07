@@ -12,15 +12,15 @@
       <div class="form">
         <div class="form-group">
           <label for="columns">Columns</label>
-          <input type="text" class="form-control" id="columns" placeholder="columns" v-model="columns" :disabled="difficulty !== 'custom'">
+          <input type="text" class="form-control" id="columns" placeholder="columns" v-model="columns" :disabled="difficulty !== 'custom'"  autocomplete="off">
         </div>
         <div class="form-group">
           <label for="rows">Rows</label>
-          <input type="text" class="form-control" id="rows" placeholder="rows" v-model="rows" :disabled="difficulty !== 'custom'">
+          <input type="text" class="form-control" id="rows" placeholder="rows" v-model="rows" :disabled="difficulty !== 'custom'"  autocomplete="off">
         </div>
         <div class="form-group">
           <label for="bombs">Bombs</label>
-          <input type="text" class="form-control" id="bombs" placeholder="bombs" v-model="bombs" :disabled="difficulty !== 'custom'">
+          <input type="text" class="form-control" id="bombs" placeholder="bombs" v-model="bombs" :disabled="difficulty !== 'custom'"  autocomplete="off">
         </div>
       </div>
       <div class="actions">

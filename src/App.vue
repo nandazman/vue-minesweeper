@@ -36,6 +36,7 @@ export default class App extends Vue {}
   * {
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Ranchers', cursive;
   }
   main {
     min-height: 100vh;
